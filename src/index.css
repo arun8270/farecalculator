@@ -1,4 +1,49 @@
 body {
   background-color: black;
   color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+}
+.input-container{
+  display: flex;
+}
+.input-container input{
+  padding: 10px 50px;
+  font-size: 20px;
+  margin-right: 15px;
+  border: none;
+  border-radius: 5px;
+}
+button{
+  padding:10px 20px;
+  margin-top: 10px;
+  background-color: skyblue;
+  color:black;
+  border: none;
+  border-radius: 5px;
+  font-size: 15px;
+  font-weight: bold;
+}
+#flexibleInput{
+  padding: 10px 50px;
+  font-size: 20px;
+  margin-right: 15px;
+  border: none;
+  border-radius: 5px;
+  margin-top: 15px;
+}
+#myCheckbox{
+  padding: 20px;
+  
+
+}
+label{
+  font-size: 20px;
+}
+.flexible-container{
+  display: flex;
+  flex-direction: column;
 }

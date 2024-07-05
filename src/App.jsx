@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import './App.css';
 
+
 let formulas = [{ id : 1, question : 'Total Fare', formula : 'Initial Fare(Base Fare) + KM Fare + Travel Time Fare '} ,{id : 2, question : 'GST on Total Fare',
 formula : '(Initial Fare + KM fare + Travel Time Fare) * GST %'} , {id : 3, question : 'Net Fare', formula : 'totalFare + GST'} ,
   {id : 4, question : 'Grand Total', formula : 'netFare + Booking Convenience Fee + Booking Convenience Fee CGST + Booking Convenience Fee + Booking Convenience Fee SGST'
@@ -34,8 +35,6 @@ function FormulaAccordian({formulas}) {
   );
 }
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
     <>
       <FormulaAccordian formulas = {formulas} />
