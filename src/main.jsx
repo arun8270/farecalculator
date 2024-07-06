@@ -12,6 +12,7 @@ function FareCalculate() {
   let[flexibleApplied, setFlexibleApplied] = useState(false)
   let[flexibleFare, setFlexibleFare] = useState(0)
   let[flexiPercentage, setFlexiPercentage] = useState(0);
+  let[flexiGrandTotal, setFlexiGrandTotal] = useState(0)
 
   //Trip Fare Slot Values
 
@@ -63,9 +64,10 @@ function actualFareCalculate(){
   //Flexible Fare Applied
   function calculateFlexibleFare(){
      flexibleFareTotal = (totalFare * (flexiPercentage/100)) 
-     console.log(flexibleFareTotal)
-     let flexibleFareGrandTotal = (flexibleFareTotal + (flexibleFareTotal * (gstPercentage/100)) )
-     setFlexibleFare(flexibleFareGrandTotal)
+     let flexiFareTotal = (flexibleFareTotal + (flexibleFareTotal * (gstPercentage/100)));
+     setFlexibleFare(flexiFareTotal.toFixed(2))
+     let flexibleAppliedGrandTotal = flexiFareTotal + grandtotal
+     setFlexiGrandTotal(flexibleAppliedGrandTotal)
   }
 
 
@@ -86,7 +88,7 @@ function actualFareCalculate(){
 
            {actualFare && (
         <div className='fare-display'>
-          <h3>Actual Fare is : {actualFare}</h3>
+          <h2>Estimated Fare is : {actualFare}</h2>
           <input type="checkbox" id="myCheckbox" name="myCheckbox" checked={flexibleApplied} onChange={(e) => setFlexibleApplied(e.target.checked)}/>
           <label htmlFor="myCheckbox">Flexible Applied</label>
           <div className='flexible-container'>
@@ -95,9 +97,14 @@ function actualFareCalculate(){
                  <input type='number'  id='flexibleInput' placeholder='Flexible %'value={flexiPercentage} onChange={(e) => setFlexiPercentage(e.target.value)}/>
             </div>
      )}
-       {flexiPercentage !==0 &&(
+       {flexibleApplied && flexiPercentage !==0 &&(
             <div> <button onClick={calculateFlexibleFare}>Calculate Flexible Fare</button> 
-            {flexibleFare !==0 &&(<h3>Flexible Fare is : {flexibleFare}</h3>)}
+            {flexibleFare !==0 &&(
+              <>
+              <h3>Flexible Fare is : {flexibleFare}</h3>
+              <h2>Flexible Applied Estimated Fare is : {flexiGrandTotal} </h2>
+              </>
+              )}
             </div>    
                  )}
           </div>
