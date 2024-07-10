@@ -28,3 +28,12 @@
 .formula-item.active .formula-body{
   max-height: 300px;
 }
+.formula-title{
+  border: 1px solid white;
+  text-align: center;
+  padding: 10px 0px;
+}
+.formula-accordian{
+  width: 1000px;
+  height: 1000px;
+}
