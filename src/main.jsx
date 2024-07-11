@@ -9,7 +9,18 @@ function FareCalculate() {
   let[travelTime, setTravelTime] = useState(0);
   let[emptyKM, setEmptyKM] = useState(0);
   let[actualFare, setActualFare] = useState(0);
+  let[peakinBaseFare, setPeakinBaseFare] = useState(0);
+
+  let[peakinKM, setPeakinKM] = useState(0);
+  let[peakFare, setPeakFare] = useState(0);
+
+
+
   let[flexibleApplied, setFlexibleApplied] = useState(false);
+  let[peakApplied, setPeakApplied] = useState(false);
+  let[dynamicApplied, setDynamicApplied] = useState(false);
+
+
   let[displayFormula, setDisplayFormula] = useState(false);
   let[flexibleFare, setFlexibleFare] = useState(0)
   let[flexiPercentage, setFlexiPercentage] = useState('');
@@ -64,12 +75,28 @@ function actualFareCalculate(){
   }
 
   //Flexible Fare Applied
-  function calculateFlexibleFare(){
+  function calculateSurge(){
+    //  Flexible Fare Calculatiom
      flexibleFareTotal = (totalFare * (flexiPercentage/100)) 
      let flexiFareTotal = (flexibleFareTotal + (flexibleFareTotal * (gstPercentage/100)));
      setFlexibleFare(flexiFareTotal.toFixed(2))
      let flexibleAppliedGrandTotal = flexiFareTotal + grandtotal
      setFlexiGrandTotal(flexibleAppliedGrandTotal)
+
+     // Peak Fare Calculation
+     let totalKM = km - initialFreeKM;
+     let peakTotal, kmFareTotal;
+     if(totalKM>=kmLimit){
+       kmFareTotal = kmLimit * peakinKM;
+       peakTotal = (kmFareTotal + peakinBaseFare) + ((kmFareTotal + peakinBaseFare)*gstPercentage/100); 
+       setPeakFare(peakTotal)
+     }
+     else if(totalKM>0){
+      kmFareTotal = totalKM * peakinKM;
+      peakTotal = (kmFareTotal + peakinBaseFare) + ((kmFareTotal + peakinBaseFare)*gstPercentage/100);
+      setPeakFare(peakTotal)
+
+     }
   }
 
 
@@ -95,25 +122,48 @@ function actualFareCalculate(){
           <label htmlFor="myCheckboxOne">Display Formula's</label>
            {actualFare && (
         <div className='fare-display'>
-          <h2>Estimated Fare is : {actualFare}</h2>
+          <h2 className='estimateFare'>Estimated Fare is : {actualFare}</h2>
+          <div>
           <input type="checkbox" id="myCheckbox" name="myCheckbox" checked={flexibleApplied} onChange={(e) => setFlexibleApplied(e.target.checked)}/>
-          <label htmlFor="myCheckbox">Flexible Applied</label>
+          <label htmlFor="myCheckbox">Apply Flexible Fare</label>
+          {flexibleApplied && (  
+          <input type='number'  id='flexibleInput' placeholder='Flexible %'value={flexiPercentage} onChange={(e) => setFlexiPercentage(e.target.value)}/>  
+          )}
+          </div>
+
+          <div>
+          <input type="checkbox" id="myCheckboxTwo" name="myCheckboxTwo" checked={peakApplied} onChange={(e) => setPeakApplied(e.target.checked)}/>
+          <label htmlFor="myCheckboxTwo">Apply Peak Fare</label>
+          {peakApplied &&(
+          <>
+          <input type='number'  id='peakInput' placeholder='Peak in Base Fare ' onChange={(e) => setPeakinBaseFare(e.target.value)}/>
+          <input type='number'  id='peakInputTwo' placeholder='Peak in KM(Fare/KM) ' onChange={(e) => setPeakinKM(e.target.value)}/>  
+          </>
+           )}
+          </div>
+          
+          
+          <input type="checkbox" id="myCheckboxThree" name="myCheckboxThree" checked={dynamicApplied} onChange={(e) => setDynamicApplied(e.target.checked)}/>
+          <label htmlFor="myCheckboxThree">Apply Dynamic Fare</label>
+          {dynamicApplied &&(
+         <input type='number'  id='dynamicInput' placeholder='Enter Dynamic Fare ' onChange={(e) => setFlexiPercentage(e.target.value)}/> 
+          )}
           <div className='flexible-container'>
-          {flexibleApplied && (
-            <div>   
-                 <input type='number'  id='flexibleInput' placeholder='Flexible %'value={flexiPercentage} onChange={(e) => setFlexiPercentage(e.target.value)}/>
-            </div>
-     )}
+          
+   
+     
 
 
 
 
-       {flexibleApplied && flexiPercentage !==0 &&(
-        <div> <button onClick={calculateFlexibleFare}>Calculate Flexible Fare</button> 
+       { (peakApplied || flexibleApplied || dynamicApplied) && (
+        <div> 
+          <button className='surchargeCalculate' onClick={calculateSurge}>Calculate {flexibleApplied && (`Flexible`)} {peakApplied && (` Peak`)} {dynamicApplied && (` Dynamic`)} Fare</button> 
             {flexibleFare !==0 &&(
               <>
               <h3>Flexible Fare is : {flexibleFare}</h3>
-              <h2>Flexible Applied Estimated Fare is : {flexiGrandTotal} </h2>
+              <h3>Peak Fare is : {peakFare} </h3>
+              <h2 className='flexibleEstimateFare'>Flexible Applied Estimated Fare is : {flexiGrandTotal} </h2>
               <h3>Driver Bid Screen in Chennai : {actualFare} + {flexibleFare} </h3>
               <h3>Driver Bid Screen in Other Cities : {flexiGrandTotal} </h3>
               </>
