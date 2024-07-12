@@ -79,13 +79,16 @@ function actualFareCalculate(){
     //  Flexible Fare Calculatiom
      flexibleFareTotal = (totalFare * (flexiPercentage/100)) 
      let flexiFareTotal = (flexibleFareTotal + (flexibleFareTotal * (gstPercentage/100)));
-     setFlexibleFare(flexiFareTotal.toFixed(2))
+     setFlexibleFare(flexiFareTotal.toFixed(2));
 
-     setGrandTotalWithSurge(flexiFareTotal + peakGrandTotal + grandtotal)
+  
+
+     
 
      // Peak Fare Calculation
      let totalKM = km - initialFreeKM;
-     if(totalKM>=kmLimit){
+     if(flexibleApplied == true){
+      if(totalKM>=kmLimit){
        kmFareTotal = kmLimit * peakinKM;
        peakTotal = kmFareTotal + parseFloat(peakinBaseFare);
        peakGrandTotal = peakTotal + (peakTotal * (gstPercentage/100))
@@ -104,6 +107,11 @@ function actualFareCalculate(){
       peakGrandTotal = peakTotal + (peakTotal * (gstPercentage/100))
       setPeakFare(peakGrandTotal)
      }
+
+     let surgeTotal = flexiFareTotal + peakGrandTotal;
+     setGrandTotalWithSurge(surgeTotal.toFixed(2));
+     
+     
   }
 
 
@@ -168,10 +176,12 @@ function actualFareCalculate(){
           <button className='surchargeCalculate' onClick={calculateSurge}>Calculate {flexibleApplied && (`Flexible`)} {peakApplied && (` Peak`)} {dynamicApplied && (` Dynamic`)} Fare</button> 
             {flexibleFare !==0 &&(
               <>
-              <h3>Flexible Fare is : {flexibleFare}</h3>
-              <h3>Peak Fare is : {peakFare} </h3>
-              <h3 className='flexibleEstimateFare'>{flexibleApplied &&(`Flexible`)} {peakApplied && (`Peak`)} {dynamicApplied && (`Dynamic`)} Applied Estimated Fare is : {flexibleApplied && (parseFloat(flexibleFare)) || + peakApplied && (peakFare) || + grandtotal} </h3>
-              <h3>Driver Bid Screen in Chennai : {actualFare} + {flexibleFare} </h3>
+              {flexibleApplied &&  <h3 className='flexibleFare'>Flexible Fare is : {flexibleFare}</h3>}
+              {peakApplied && <h3 className='peakFare'>Peak Fare is : {peakFare} </h3> }
+             
+              
+              <h3 className='flexibleEstimateFare'>{flexibleApplied &&(`Flexible`)} {peakApplied && (`Peak`)} {dynamicApplied && (`Dynamic`)} Applied Estimated Fare is : {(grandtotal + peakFare + parseFloat(flexibleFare)).toFixed(2)} </h3>
+              <h3>Driver Bid Screen in Chennai : {actualFare} + {grandTotalWithSurge} </h3>
               <h3>Driver Bid Screen in Other Cities : {flexiGrandTotal} </h3>
               </>
               )}

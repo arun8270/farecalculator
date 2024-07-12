@@ -92,7 +92,7 @@ span{
   margin-top: 10px;
 }
 .estimateFare{
-  background-color: darkorange;
+  background-color: rgb(255, 106, 0);
   color: black;
   margin-top: 15px;
   width: 300px;
@@ -101,7 +101,7 @@ span{
   border-radius: 10px;
 }
 .flexibleEstimateFare{
-  background-color: darkorange;
+  background-color: rgb(255, 106, 0);
   color: black;
   margin-top: 15px;
   width: 500px;
@@ -112,5 +112,23 @@ span{
 }
 .surchargeCalculate{
   margin-top: 15px;
+}
+.flexibleFare{
+  color:white;
+  background-color: green;
+  margin-top: 15px;
+  width: 300px;
+  padding: 8px 15px;
+  text-align: left;
+  border-radius: 10px;
+}
+.peakFare{
+  color:white;
+  background-color: green;
+  margin-top: 15px;
+  width: 300px;
+  padding: 8px 15px;
+  text-align: left;
+  border-radius: 10px;
 }
 
