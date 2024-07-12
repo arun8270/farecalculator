@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import App from './App.jsx';
 import './index.css';
 
-let totalFare, grandtotal, flexibleFareTotal, peakTotal, kmFareTotal, peakGrandTotal;
+let totalFare, grandtotal, flexibleFareTotal, flexiFareGrandTotal, peakTotal, kmFareTotal, peakGrandTotal;
 function FareCalculate() {
   let[km, setKM] = useState(0);
   let[travelTime, setTravelTime] = useState(0);
@@ -76,18 +76,21 @@ function actualFareCalculate(){
 
   //Flexible Fare Applied
   function calculateSurge(){
-    //  Flexible Fare Calculatiom
-     flexibleFareTotal = (totalFare * (flexiPercentage/100)) 
-     let flexiFareTotal = (flexibleFareTotal + (flexibleFareTotal * (gstPercentage/100)));
-     setFlexibleFare(flexiFareTotal.toFixed(2));
+    //  Flexible Fare Calculation
 
-  
-
+    if(flexibleApplied == true){
+      flexibleFareTotal = (totalFare * (flexiPercentage/100)) 
+      flexiFareGrandTotal = (flexibleFareTotal + (flexibleFareTotal * (gstPercentage/100)));
+     setFlexibleFare(flexiFareGrandTotal.toFixed(2));
+    }
+    else{
+      setFlexibleFare(0)
+    }
      
 
      // Peak Fare Calculation
      let totalKM = km - initialFreeKM;
-     if(flexibleApplied == true){
+     if(peakApplied == true){
       if(totalKM>=kmLimit){
        kmFareTotal = kmLimit * peakinKM;
        peakTotal = kmFareTotal + parseFloat(peakinBaseFare);
@@ -107,11 +110,12 @@ function actualFareCalculate(){
       peakGrandTotal = peakTotal + (peakTotal * (gstPercentage/100))
       setPeakFare(peakGrandTotal)
      }
-
+     }
+     else{
+      setPeakFare(0)
+     }
      let surgeTotal = flexiFareTotal + peakGrandTotal;
-     setGrandTotalWithSurge(surgeTotal.toFixed(2));
-     
-     
+     setGrandTotalWithSurge(surgeTotal.toFixed(2)); 
   }
 
 
