@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import App from './App.jsx';
 import './index.css';
 
-let totalFare, grandtotal, flexibleFareTotal;
+let totalFare, grandtotal, flexibleFareTotal, peakTotal, kmFareTotal, peakGrandTotal;
 function FareCalculate() {
   let[km, setKM] = useState(0);
   let[travelTime, setTravelTime] = useState(0);
@@ -13,7 +13,7 @@ function FareCalculate() {
 
   let[peakinKM, setPeakinKM] = useState(0);
   let[peakFare, setPeakFare] = useState(0);
-
+  let[grandTotalWithSurge, setGrandTotalWithSurge] = useState(0)
 
 
   let[flexibleApplied, setFlexibleApplied] = useState(false);
@@ -80,22 +80,29 @@ function actualFareCalculate(){
      flexibleFareTotal = (totalFare * (flexiPercentage/100)) 
      let flexiFareTotal = (flexibleFareTotal + (flexibleFareTotal * (gstPercentage/100)));
      setFlexibleFare(flexiFareTotal.toFixed(2))
-     let flexibleAppliedGrandTotal = flexiFareTotal + grandtotal
-     setFlexiGrandTotal(flexibleAppliedGrandTotal)
+
+     setGrandTotalWithSurge(flexiFareTotal + peakGrandTotal + grandtotal)
 
      // Peak Fare Calculation
      let totalKM = km - initialFreeKM;
-     let peakTotal, kmFareTotal;
      if(totalKM>=kmLimit){
        kmFareTotal = kmLimit * peakinKM;
-       peakTotal = (kmFareTotal + peakinBaseFare) + ((kmFareTotal + peakinBaseFare)*gstPercentage/100); 
-       setPeakFare(peakTotal)
+       peakTotal = kmFareTotal + parseFloat(peakinBaseFare);
+       peakGrandTotal = peakTotal + (peakTotal * (gstPercentage/100))
+       setPeakFare(peakGrandTotal)
      }
-     else if(totalKM>0){
-      kmFareTotal = totalKM * peakinKM;
-      peakTotal = (kmFareTotal + peakinBaseFare) + ((kmFareTotal + peakinBaseFare)*gstPercentage/100);
-      setPeakFare(peakTotal)
 
+     else if (totalKM <=0){
+      kmFareTotal = 0;
+      peakTotal = kmFareTotal + parseFloat(peakinBaseFare);
+      peakGrandTotal = peakTotal + (peakTotal * (gstPercentage/100))
+      setPeakFare(peakGrandTotal)
+     }
+     else{
+      kmFareTotal = totalKM * peakinKM;
+      peakTotal = kmFareTotal + parseFloat(peakinBaseFare);
+      peakGrandTotal = peakTotal + (peakTotal * (gstPercentage/100))
+      setPeakFare(peakGrandTotal)
      }
   }
 
@@ -163,7 +170,7 @@ function actualFareCalculate(){
               <>
               <h3>Flexible Fare is : {flexibleFare}</h3>
               <h3>Peak Fare is : {peakFare} </h3>
-              <h2 className='flexibleEstimateFare'>Flexible Applied Estimated Fare is : {flexiGrandTotal} </h2>
+              <h3 className='flexibleEstimateFare'>{flexibleApplied &&(`Flexible`)} {peakApplied && (`Peak`)} {dynamicApplied && (`Dynamic`)} Applied Estimated Fare is : {flexibleApplied && (parseFloat(flexibleFare)) || + peakApplied && (peakFare) || + grandtotal} </h3>
               <h3>Driver Bid Screen in Chennai : {actualFare} + {flexibleFare} </h3>
               <h3>Driver Bid Screen in Other Cities : {flexiGrandTotal} </h3>
               </>
