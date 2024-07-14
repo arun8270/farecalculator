@@ -5,14 +5,14 @@
   overflow: hidden;
 }
 .formula-header {
-  background-color: navy;
+  background-color: grey;
   font-size: 20px;
   padding: 10px;
   cursor: pointer;
   transition: background-color 0.3sec ease;
 }
 .formula-header:hover {
-  background-color: rgba(0, 0, 128, 0.251);
+  background-color: black;
 }
 .formula-body {
   max-height: 0px;
@@ -20,7 +20,7 @@
   transition: max-height 0.3sec ease;
 }
 .formula-body-content {
-  background-color: blanchedalmond;
+  background-color: skyblue;
   color: black;
   padding: 15px;
   font-size: 17px;
@@ -29,8 +29,7 @@
   max-height: 300px;
 }
 .formula-title{
-  border: 1px solid white;
-  text-align: center;
+  text-align: left;
   padding: 10px 0px;
 }
 .formula-accordian{

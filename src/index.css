@@ -131,4 +131,21 @@ span{
   text-align: left;
   border-radius: 10px;
 }
+.dynamicFare{
+  color:white;
+  background-color: green;
+  margin-top: 15px;
+  width: 350px;
+  padding: 8px 15px;
+  text-align: left;
+  border-radius: 10px;
+}
+.chennai-bid{
+  background-color: cadetblue;
+  margin-top: 15px;
+  width: 400px;
+  padding: 8px 15px;
+  text-align: left;
+  border-radius: 10px;
+}
 

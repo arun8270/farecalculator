@@ -2,10 +2,11 @@ import { useState } from 'react';
 import './App.css';
 
 
-let formulas = [{ id : 1, question : 'Estimated Fare Formula', formula : `Total Fare (Initial Fare + KM Fare + Travel Time Fare + Empty KM Fare)                                                                                  
+let formulas = [{ id : 1, question : 'What is Estimated Fare ?', formula : `Total Fare (Initial Fare + KM Fare + Travel Time Fare + Empty KM Fare)                                                                                  
 +  GST on Total Fare + Booking Convenience Fee +  Booking Convenience Fee SGST +  Booking Convenience Fee CGST` } ,
-{id : 2, question : 'Flexible Fare Formula',
-formula : '(Initial Fare + KM fare + Travel Time Fare + Waiting Fare) * Flexible Fare %. Note : Flexible fare will not apply on Empty KM'}]
+{id : 2, question : 'Flexible Fare Formula?',
+formula : '(Initial Fare + KM fare + Travel Time Fare + Waiting Fare) * Flexible Fare %. Note : Flexible fare will not apply on Empty KM'}, {id : 3, question : 'Fare Related Cases ?',
+formula : 'Trip Fare Slot, Flexible Fare, Dynamic Fare, Peak Fare, Airport Charges, GST, Convenience Fee, 15 % Scenarios in Chennai, Trip Details, Last trip details(Driver App)'}]
 
 
 function FormulaItem({question, answer}) {
@@ -29,7 +30,7 @@ function FormulaItem({question, answer}) {
 function FormulaAccordian({formulas}) {
   return (
     <div className="formula-accordian">
-      <h2 className='formula-title'>Fare Formula's </h2>
+      <h2 className='formula-title'>Frequently Asked Questions : </h2>
       {formulas.map((item => (<FormulaItem key = {item.id} question = {item.question} answer = {item.formula} />)))}
     </div>
   );
