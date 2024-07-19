@@ -124,7 +124,8 @@ function actualFareCalculate(){
          //Dynamic Fare Calculation
 
     if(dynamicApplied==true){
-      dynamicTotal = ((totalFare + flexibleFareTotal + peakTotal)* dynamicValue);
+      dynamicTotal = ((totalFare * dynamicValue)- totalFare);
+      console.log(totalFare)
       let dynamicFareGrandTotal = (dynamicTotal + (dynamicTotal * (gstPercentage/100)));
       setDynamicFare(dynamicFareGrandTotal.toFixed(2))
     }
