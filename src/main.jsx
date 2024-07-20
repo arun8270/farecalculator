@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import App from './App.jsx';
 import './index.css';
 
-let totalFare, grandtotal, dynamicTotal, flexibleFareTotal, flexiFareGrandTotal, peakTotal, kmFareTotal, peakGrandTotal;
+let totalFare, grandtotal, dynamicTotal, flexibleFareTotal = 0, flexiFareGrandTotal, peakTotal = 0, kmFareTotal, peakGrandTotal;
 function FareCalculate() {
   let[km, setKM] = useState(0);
   let[travelTime, setTravelTime] = useState(0);
@@ -124,8 +124,10 @@ function actualFareCalculate(){
          //Dynamic Fare Calculation
 
     if(dynamicApplied==true){
-      dynamicTotal = ((totalFare * dynamicValue)- totalFare);
+      console.log(peakTotal, flexibleFareTotal )
+      dynamicTotal = ((totalFare * dynamicValue) + ((flexibleFareTotal * dynamicValue)-flexibleFareTotal) + ((peakTotal * dynamicValue)-peakTotal) - totalFare);
       console.log(totalFare)
+      console.log((totalFare * dynamicValue)-totalFare) 
       let dynamicFareGrandTotal = (dynamicTotal + (dynamicTotal * (gstPercentage/100)));
       setDynamicFare(dynamicFareGrandTotal.toFixed(2))
     }
@@ -200,7 +202,7 @@ function actualFareCalculate(){
               {dynamicApplied && <h3 className='dynamicFare'>Dynamic Fare is : {dynamicFare} </h3>}
              
               
-              <h3 className='flexibleEstimateFare'>{flexibleApplied &&(`Flexible`)} {peakApplied && (`Peak`)} {dynamicApplied && (`Dynamic`)} Applied Estimated Fare is : {(grandtotal + parseFloat(peakFare) +  parseFloat(flexibleFare)).toFixed(2)} </h3>
+              <h3 className='flexibleEstimateFare'>{flexibleApplied &&(`Flexible`)} {peakApplied && (`Peak`)} {dynamicApplied && (`Dynamic`)} Applied Estimated Fare is : {(grandtotal + parseFloat(dynamicFare) + parseFloat(peakFare) +  parseFloat(flexibleFare)).toFixed(2)} </h3>
               <h3 className='chennai-bid'>Driver Bid Screen in Chennai : {actualFare} + {parseFloat(peakFare) + parseFloat(flexibleFare) + parseFloat(dynamicFare)} </h3>
               </>
               )}

@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import './App.css';
 
-
 let formulas = [{ id : 1, question : 'What is Estimated Fare ?', formula : `Total Fare (Initial Fare + KM Fare + Travel Time Fare + Empty KM Fare)                                                                                  
 +  GST on Total Fare + Booking Convenience Fee +  Booking Convenience Fee SGST +  Booking Convenience Fee CGST` } ,
 {id : 2, question : 'Flexible Fare Formula?',
