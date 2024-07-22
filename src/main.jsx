@@ -1,9 +1,9 @@
-import {React, useState} from 'react';
+import {React, useState, useEffect} from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App.jsx';
 import './index.css';
 
-let totalFare, grandtotal, dynamicTotal, flexibleFareTotal = 0, flexiFareGrandTotal, peakTotal = 0, kmFareTotal, peakGrandTotal;
+let totalFare, grandtotal, dynamicTotal, flexibleFareTotal = 0, flexiFareGrandTotal, peakTotal = 0, kmFareTotal, peakGrandTotal, surgeTotal;
 function FareCalculate() {
   let[km, setKM] = useState(0);
   let[travelTime, setTravelTime] = useState(0);
@@ -57,12 +57,12 @@ function actualFareCalculate(){
   let bookingConvenienceFeeTotal = bookingConvenienceFee + bookingConvenienceFeeCGSTPercentage + bookingConvenienceFeeSGSTPercentage;
   if(km > 2 && km <=5){
     totalFare = ((km - initialFreeKM) * farePerKM) + initialFare + (travelTime * travelTimeFarePerMin);
-    grandtotal = totalFare + (totalFare * (gstPercentage/100)) + bookingConvenienceFeeTotal + (emptyKM * emptyKmCharge )
+    grandtotal = totalFare + (totalFare * (gstPercentage/100)) + bookingConvenienceFeeTotal + (emptyKM * emptyKmCharge ) + ((emptyKM * emptyKmCharge ) * gstPercentage/100)
     setActualFare(grandtotal.toFixed(2))
   }
   else if(km <= 2){
     totalFare = (0 * farePerKM) + initialFare + (travelTime * travelTimeFarePerMin);
-    grandtotal = totalFare + (totalFare * gstPercentage/100) + bookingConvenienceFeeTotal + (emptyKM * emptyKmCharge );
+    grandtotal = totalFare + (totalFare * gstPercentage/100) + bookingConvenienceFeeTotal + (emptyKM * emptyKmCharge ) + ((emptyKM * emptyKmCharge ) * gstPercentage/100)
     setActualFare(grandtotal.toFixed(2))
 }
  //KM After Limit Calculation
@@ -70,13 +70,14 @@ function actualFareCalculate(){
       let totalKM = km - initialFreeKM;
       let kmAfterLimitKM = totalKM - kmLimit;
       totalFare = (kmLimit * farePerKM) + (kmAfterLimitKM * farePerKmAfterLimit ) + initialFare + (travelTime * travelTimeFarePerMin);
-      grandtotal = totalFare + (totalFare * gstPercentage/100) + bookingConvenienceFeeTotal + (emptyKM * emptyKmCharge )
+      grandtotal = totalFare + (totalFare * gstPercentage/100) + bookingConvenienceFeeTotal + (emptyKM * emptyKmCharge ) + ((emptyKM * emptyKmCharge ) * gstPercentage/100)
       setActualFare(grandtotal.toFixed(2))
       console.log(totalFare)
     }
 
     
   }
+  surgeTotal = parseFloat (peakFare) + parseFloat (dynamicFare) + parseFloat(flexibleFare)
 
   //Surge Fare's Calculation
 
@@ -131,6 +132,9 @@ function actualFareCalculate(){
       let dynamicFareGrandTotal = (dynamicTotal + (dynamicTotal * (gstPercentage/100)));
       setDynamicFare(dynamicFareGrandTotal.toFixed(2))
     }
+    else{
+      setDynamicFare(0)
+    }
  
   }
   
@@ -139,6 +143,7 @@ function actualFareCalculate(){
 
   //Input Fields
   return(
+    
         
  <> 
  <div className='header'>
@@ -203,7 +208,9 @@ function actualFareCalculate(){
              
               
               <h3 className='flexibleEstimateFare'>{flexibleApplied &&(`Flexible`)} {peakApplied && (`Peak`)} {dynamicApplied && (`Dynamic`)} Applied Estimated Fare is : {(grandtotal + parseFloat(dynamicFare) + parseFloat(peakFare) +  parseFloat(flexibleFare)).toFixed(2)} </h3>
-              <h3 className='chennai-bid'>Driver Bid Screen in Chennai : {actualFare} + {parseFloat(peakFare) + parseFloat(flexibleFare) + parseFloat(dynamicFare)} </h3>
+              {surgeTotal > 0 ? (
+              <h3 className='chennai-bid'> Driver Bid Screen in Chennai : {actualFare} + {surgeTotal.toFixed(2)} </h3> ) 
+              : ( <h3 className='chennai-bid'> Driver Bid Screen in Chennai : {(parseFloat(actualFare) + parseFloat(surgeTotal)).toFixed(2)} </h3> )}
               </>
               )}
         </div>    
