@@ -2,6 +2,7 @@ import {React, useState, useEffect} from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App.jsx';
 import './index.css';
+import KarurSlot from './Karur.jsx';
 
 let totalFare, grandtotal, dynamicTotal, flexibleFareTotal = 0, flexiFareGrandTotal, peakTotal = 0, kmFareTotal, peakGrandTotal, surgeTotal;
 function FareCalculate() {
@@ -147,6 +148,7 @@ function actualFareCalculate(){
         
  <> 
  <div className='header'>
+  <KarurSlot/>
  <h1> Fare Calculator (Local Bookings)</h1>
  </div>
      <div className='input-container'>
