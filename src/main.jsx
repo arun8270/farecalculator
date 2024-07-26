@@ -147,7 +147,7 @@ function actualFareCalculate(){
         
  <> 
  <div className='header'>
- <h1>Red Taxi Trip Fare Calculator (Local Bookings)</h1>
+ <h1> Fare Calculator (Local Bookings)</h1>
  </div>
      <div className='input-container'>
         <input type="number" placeholder="Estimated KM" required onChange={(e) =>{setKM(e.target.value)}}  />
@@ -163,7 +163,7 @@ function actualFareCalculate(){
           <label htmlFor="myCheckboxOne">FAQ</label>
            {actualFare && (
         <div className='fare-display'>
-          <h2 className='estimateFare'>Estimated Fare is : {actualFare}</h2>
+          <h2 className='estimateFare'>Estimated Fare is : ₹ {actualFare}</h2>
           <div>
           <input type="checkbox" id="myCheckbox" name="myCheckbox" checked={flexibleApplied} onChange={(e) => setFlexibleApplied(e.target.checked)}/>
           <label htmlFor="myCheckbox">Apply Flexible Fare</label>
@@ -202,15 +202,15 @@ function actualFareCalculate(){
           <button className='surchargeCalculate' onClick={calculateSurge}>Calculate {flexibleApplied && (`Flexible`)} {peakApplied && (` Peak`)} {dynamicApplied && (` Dynamic`)} Fare</button> 
             {(flexibleFare !==0 || peakFare!==0 || dynamicFare !==0) &&(
               <>
-              {flexibleApplied &&  <h3 className='flexibleFare'>Flexible Fare is : {flexibleFare}</h3>}
-              {peakApplied && <h3 className='peakFare'>Peak Fare is : {peakFare} </h3> }
-              {dynamicApplied && <h3 className='dynamicFare'>Dynamic Fare is : {dynamicFare} </h3>}
+              {flexibleApplied &&  <h3 className='flexibleFare'>Flexible Fare is : ₹ {flexibleFare}</h3>}
+              {peakApplied && <h3 className='peakFare'>Peak Fare is : ₹ {peakFare} </h3> }
+              {dynamicApplied && <h3 className='dynamicFare'>Dynamic Fare is : ₹ {dynamicFare} </h3>}
              
               
               <h3 className='flexibleEstimateFare'>{flexibleApplied &&(`Flexible`)} {peakApplied && (`Peak`)} {dynamicApplied && (`Dynamic`)} Applied Estimated Fare is : {(grandtotal + parseFloat(dynamicFare) + parseFloat(peakFare) +  parseFloat(flexibleFare)).toFixed(2)} </h3>
               {surgeTotal > 0 ? (
-              <h3 className='chennai-bid'> Driver Bid Screen in Chennai : {actualFare} + {surgeTotal.toFixed(2)} </h3> ) 
-              : ( <h3 className='chennai-bid'> Driver Bid Screen in Chennai : {(parseFloat(actualFare) + parseFloat(surgeTotal)).toFixed(2)} </h3> )}
+              <h3 className='chennai-bid'> Driver Bid Screen in Chennai : ₹ {actualFare} + ₹ {surgeTotal.toFixed(2)} </h3> ) 
+              : ( <h3 className='chennai-bid'> Driver Bid Screen in Chennai : ₹ {(parseFloat(actualFare) + parseFloat(surgeTotal)).toFixed(2)} </h3> )}
               </>
               )}
         </div>    
