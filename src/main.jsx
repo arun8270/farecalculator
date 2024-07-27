@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import App from './App.jsx';
 import './index.css';
 import KarurSlot from './Karur.jsx';
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 
 let totalFare, grandtotal, dynamicTotal, flexibleFareTotal = 0, flexiFareGrandTotal, peakTotal = 0, kmFareTotal, peakGrandTotal, surgeTotal;
 function FareCalculate() {
@@ -148,8 +149,8 @@ function actualFareCalculate(){
         
  <> 
  <div className='header'>
-  <KarurSlot/>
  <h1> Fare Calculator (Local Bookings)</h1>
+ 
  </div>
      <div className='input-container'>
         <input type="number" placeholder="Estimated KM" required onChange={(e) =>{setKM(e.target.value)}}  />
@@ -224,7 +225,16 @@ function actualFareCalculate(){
       {displayFormula &&(
         <App/>
       )}
-      
+      <BrowserRouter>
+      <ul>
+        <li><Link to='/'>Home</Link></li>
+        <li><Link to='/app'>App</Link></li>
+      </ul>
+          <Routes>
+            <Route path='/' element = {<Main/>}/>
+            <Route path='/app' element = {<App/>}/>
+          </Routes>
+      </BrowserRouter>
     </>
     
   )
