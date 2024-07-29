@@ -18,6 +18,7 @@ import './Karur.css'
     return(
         <>
         <form onSubmit={handleSubmit}>
+            <h1>Trip Fare Slot Values</h1>
             <div className="slotinput-container">
             <div>
             <label htmlFor="freekm">Initial Free KM : </label>

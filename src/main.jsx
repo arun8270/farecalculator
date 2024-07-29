@@ -154,13 +154,14 @@ function actualFareCalculate(){
            <li><Link to='/karur'>Karur</Link></li>
          </ul>
              <Routes>
+               <Route path='/' />
                <Route path='/app' element = {<App/>}/>
                <Route path='/karur' element = {<KarurSlot/>}/>
              </Routes>
          </BrowserRouter>
       </div>
 
- <div className='header'>
+ {/* <div className='header'>
  <h1> Fare Calculator (Local Bookings)</h1>
  
  </div>
@@ -238,7 +239,9 @@ function actualFareCalculate(){
         <App/>
       )}  
          </>
-    )   
+    )    */}
+    </>
+    )
 }
     
 
