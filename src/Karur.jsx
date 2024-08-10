@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import './Karur.css'
- function KarurSlot(){
+ function TripFareSlot(){
     const[fareslot, setFareSlot] = useState({initialFreeKM : 2, initialFare : 105, farePerKM : 15, kmLimit : 5, kmAfterLimit : 17, freeWaitingMinute : 0, waitingFarePerminute : 2, rideChargePerMinute : 0, emptyKMCharge : 10});
     function handleSubmit(e){
         e.preventDefault();
@@ -61,4 +61,4 @@ import './Karur.css'
         </>
     )
 }
-export default KarurSlot;
+export default TripFareSlot;
