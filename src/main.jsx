@@ -55,7 +55,6 @@ else if(km > 5){
      let totalKM = km - initialFreeKM;
      let kmAfterLimitKM = totalKM - kmLimit;
      totalFare = (kmLimit * farePerKM) + (kmAfterLimitKM * farePerKmAfterLimit ) + initialFare + (travelTime * travelTimeFarePerMin);
-     console.log(totalFare)
      console.log(kmLimit, farePerKM,kmAfterLimitKM,farePerKmAfterLimit, initialFare, travelTime, travelTimeFarePerMin, bookingConvenienceFeeCGST)
      grandtotal = totalFare + (totalFare * gstPercentage/100) + bookingConvenienceFeeTotal + (emptyKM * emptyKmCharge ) + ((emptyKM * emptyKmCharge ) * gstPercentage/100)
      setActualFare(grandtotal)
@@ -65,11 +64,10 @@ else if(km > 5){
   //  Surge Fare's Calculation
 
  function calculateSurge(){
-
-   
     // Flexible Fare Calculation
 
    if(flexibleApplied == true){
+    console.log(totalFare)
      flexibleFareTotal = (totalFare * (flexiPercentage/100));
      console.log(flexibleFareTotal, totalFare, flexiPercentage)
      flexiFareGrandTotal = (flexibleFareTotal + (flexibleFareTotal * (gstPercentage/100)));
