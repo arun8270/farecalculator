@@ -7,11 +7,11 @@
 .slotinput-container input{
     margin: 8px;
 }
-label{
+.slotinput-container label{
   
         text-align: right;
         display: inline-block; /* or display: flex; */
-        width: 300px; /* Adjust width as needed */
+        width: 350px; /* Adjust width as needed */
 }
 h1{
     text-align: center;
