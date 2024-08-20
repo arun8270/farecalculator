@@ -133,7 +133,7 @@ else if(km > 5){
     <>
       {isEdit ? (
   <div className = 'slotinput-container'>
-    <button onClick = {()=>{setIsEdit(false)}}> FareCalculate </button>
+    <button className = 'fare-calculate' onClick = {()=>{setIsEdit(false)}}> FareCalculate </button>
     <h1>Trip Fare Slot </h1>
     <div>
     <label htmlFor='initialFare'>InitialFare : </label>
